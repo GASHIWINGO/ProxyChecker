@@ -123,7 +123,7 @@ void checkProxyInfo(const std::string& ip, int port, const std::string& key, std
 int main() {
     setlocale(0, "");
 
-    std::ifstream proxyFile("proxy_list.txt");
+    std::ifstream proxyFile("proxy_list1.txt");
     std::string key = "yb0r04-06c337-0644n8-750231"; 
     std::string outputFileName = "proxy_info.txt"; 
 
