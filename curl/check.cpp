@@ -152,5 +152,5 @@ int main() {
     proxyFile.close();
     outputFile.close();
 
-    return 0;
+    return 1;
 }
