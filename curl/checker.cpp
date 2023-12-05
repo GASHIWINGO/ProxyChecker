@@ -1,15 +1,4 @@
-#define CURL_STATICLIB
-
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <curl/curl.h>
-#include "rapidjson/document.h"
-
-struct MemoryStruct {
-    char* memory;
-    size_t size;
-};
+#include "checker.h"
 
 static size_t WriteMemoryCallback(void* contents, size_t size, size_t nmemb, void* userp) {
     size_t realsize = size * nmemb;
@@ -119,38 +108,3 @@ void checkProxyInfo(const std::string& ip, int port, const std::string& key, std
         free(chunk.memory);
         }
     }
-
-int main() {
-    setlocale(0, "");
-
-    std::ifstream proxyFile("proxy_list.txt");
-    std::string key = "yb0r04-06c337-0644n8-750231"; 
-    std::string outputFileName = "proxy_info.txt"; 
-
-    std::ofstream outputFile(outputFileName.c_str());
-
-    if (!proxyFile.is_open()) {
-        std::cerr << "Cannot open file with proxy servers" << std::endl;
-        return 1;
-    }
-
-    if (!outputFile.is_open()) {
-        std::cerr << "Cannot open file to write proxy info" << std::endl;
-        proxyFile.close();
-        return 1;
-    }
-
-    std::string proxy;
-
-    while (std::getline(proxyFile, proxy)) {
-        std::string ip = proxy.substr(0, proxy.find(':'));
-        int port = std::stoi(proxy.substr(proxy.find(':') + 1));
-        
-        checkProxyInfo(ip, port, key, outputFile);
-    }
-
-    proxyFile.close();
-    outputFile.close();
-
-    return 1;
-}
